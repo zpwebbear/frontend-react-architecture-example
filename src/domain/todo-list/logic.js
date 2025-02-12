@@ -1,4 +1,7 @@
-export const createTodoItem = (state, { name }) => {
+export const createTodoItem = (name) => {
+  if (!name) {
+    return null;
+  }
   return {
     id: Date.now(),
     name,

@@ -1,10 +1,11 @@
 import { applyMiddleware, compose, createStore } from "redux";
-import * as thunkMiddleware from "redux-thunk";
+import { withExtraArgument } from "redux-thunk";
 
 import { rootReducer } from "./rootReducer.js";
 
 export const configureStore = (preloadedState = {}) => {
-  const middlewares = [thunkMiddleware.thunk];
+  const thunk = withExtraArgument({});
+  const middlewares = [thunk];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
   const enhancers = [middlewareEnhancer];

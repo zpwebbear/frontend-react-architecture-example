@@ -2,47 +2,30 @@ import { connect } from "react-redux";
 import { UiButton } from "@/application/components/UiButton.jsx";
 import { InputItem } from "@/application/todo-list/InputItem.jsx";
 import { TodoItem } from "@/application/todo-list/TodoItem.jsx";
+import { todoListActions } from "@/application/todo-list/todoList.actions.js";
+import { selectTodoListIds } from "@/application/todo-list/todoList.selectors.js";
 
 const mapStateToProps = (state) => {
   return {
-    todoList: state.todoList,
+    ids: selectTodoListIds(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo: (name) =>
-      dispatch({ type: "todoList/addTodo", payload: { name } }),
-    deleteTodo: (id) =>
-      dispatch({ type: "todoList/deleteTodo", payload: { id } }),
-    moveTodoUp: (id) =>
-      dispatch({ type: "todoList/moveTodoUp", payload: { id } }),
-    moveTodoDown: (id) =>
-      dispatch({ type: "todoList/moveTodoDown", payload: { id } }),
+    addTodo: (name) => dispatch(todoListActions.addTodo(name)),
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const TodoListComponent = ({
-  addTodo,
-  todoList,
-  deleteTodo,
-  moveTodoUp,
-  moveTodoDown,
-}) => {
+const TodoListComponent = ({ ids, addTodo }) => {
   return (
     <div>
       <ul>
-        {todoList.map((todo) => (
-          <li className="py-2">
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              onDelete={() => deleteTodo(todo.id)}
-              onMoveUp={() => moveTodoUp(todo.id)}
-              onMoveDown={() => moveTodoDown(todo.id)}
-            />
+        {ids.map((id) => (
+          <li className="py-2" key={id}>
+            <TodoItem id={id} />
           </li>
         ))}
         <li className="py-2">
