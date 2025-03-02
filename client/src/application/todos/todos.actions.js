@@ -4,6 +4,8 @@ export const todosActionTypes = {
   DELETE_TODO: "todos/deleteTodo",
   MOVE_TODO_UP: "todos/moveTodoUp",
   MOVE_TODO_DOWN: "todos/moveTodoDown",
+  SET_TODOS: "todos/setTodos",
+  SYNC_TODOS: "todos/syncTodos",
 };
 
 export const todosActions = {
@@ -26,5 +28,12 @@ export const todosActions = {
   changeTodoName: (name) => ({
     type: todosActionTypes.CHANGE_TODO_NAME,
     payload: { name },
+  }),
+  setTodos: (todos) => ({
+    type: todosActionTypes.SET_TODOS,
+    payload: { todos },
+  }),
+  syncTodos: () => ({
+    type: todosActionTypes.SYNC_TODOS,
   }),
 };

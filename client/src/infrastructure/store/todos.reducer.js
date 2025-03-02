@@ -8,7 +8,7 @@ import { todosActionTypes } from "@/application/todos/todos.actions.js";
 
 const reducers = {
   [todosActionTypes.ADD_TODO]: (state, action) => {
-    const newTodo = createTodoItem(state.newTodoName, action.payload);
+    const newTodo = createTodoItem(state.todos, state.newTodoName);
     if (!newTodo) {
       return state;
     }
@@ -43,6 +43,12 @@ const reducers = {
     return {
       ...state,
       newTodoName: action.payload.name,
+    };
+  },
+  [todosActionTypes.SET_TODOS]: (state, action) => {
+    return {
+      ...state,
+      todos: action.payload.todos,
     };
   },
   DEFAULT: (state) => state,

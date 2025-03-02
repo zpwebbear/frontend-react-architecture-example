@@ -9,7 +9,13 @@ module.exports = async function (fastify, opts) {
 
   fastify.post('/', async function (request, reply) {
     const { todos } = request.body
-    const todo = await todosRepository(fastify.pg).upsertAll(todos)
-    return { data: todo }
+    const result = await todosRepository(fastify.pg).upsertAll(todos)
+    return { data: result }
+  })
+
+  fastify.delete('/:id', async function (request, reply) {
+    const { id } = request.params
+    const result = await todosRepository(fastify.pg).deleteById(id)
+    return { data: result }
   })
 }
