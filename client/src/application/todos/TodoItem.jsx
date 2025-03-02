@@ -4,8 +4,8 @@ import {
   selectTodoById,
   selectIsLastTodo,
   selectIsFirstTodo,
-} from "@/application/todo-list/todoList.selectors.js";
-import { todoListActions } from "@/application/todo-list/todoList.actions.js";
+} from "@/application/todos/todos.selectors.js";
+import { todosActions } from "@/application/todos/todos.actions.js";
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps;
@@ -22,9 +22,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const { id } = ownProps;
 
   return {
-    onDelete: () => dispatch(todoListActions.deleteTodo(id)),
-    onMoveUp: () => dispatch(todoListActions.moveTodoUp(id)),
-    onMoveDown: () => dispatch(todoListActions.moveTodoDown(id)),
+    onDelete: () => dispatch(todosActions.deleteTodo(id)),
+    onMoveUp: () => dispatch(todosActions.moveTodoUp(id)),
+    onMoveDown: () => dispatch(todosActions.moveTodoDown(id)),
   };
 }
 

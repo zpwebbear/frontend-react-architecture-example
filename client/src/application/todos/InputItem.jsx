@@ -1,16 +1,16 @@
 import { connect } from "react-redux";
 import { UiButton } from "@/application/components/UiButton.jsx";
 import { UiInput } from "@/application/components/UiInput.jsx";
-import { todoListActions } from "@/application/todo-list/todoList.actions.js";
-import { selectNewTodoName } from "@/application/todo-list/todoList.selectors.js";
+import { todosActions } from "@/application/todos/todos.actions.js";
+import { selectNewTodoName } from "@/application/todos/todos.selectors.js";
 
 const mapStateToProps = (state) => ({
   name: selectNewTodoName(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAdd: () => dispatch(todoListActions.addTodo()),
-  onNameChange: (name) => dispatch(todoListActions.changeTodoName(name)),
+  onAdd: () => dispatch(todosActions.addTodo()),
+  onNameChange: (name) => dispatch(todosActions.changeTodoName(name)),
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps);

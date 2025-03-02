@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { UiButton } from "@/application/components/UiButton.jsx";
-import { InputItem } from "@/application/todo-list/InputItem.jsx";
-import { TodoItem } from "@/application/todo-list/TodoItem.jsx";
-import { todoListActions } from "@/application/todo-list/todoList.actions.js";
-import { selectTodoListIds } from "@/application/todo-list/todoList.selectors.js";
+import { InputItem } from "@/application/todos/InputItem.jsx";
+import { TodoItem } from "@/application/todos/TodoItem.jsx";
+import { todosActions } from "@/application/todos/todos.actions.js";
+import { selectTodoListIds } from "@/application/todos/todos.selectors.js";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo: (name) => dispatch(todoListActions.addTodo(name)),
+    addTodo: (name) => dispatch(todosActions.addTodo(name)),
   };
 };
 

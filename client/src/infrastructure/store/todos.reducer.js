@@ -3,11 +3,11 @@ import {
   deleteTodoItem,
   moveTodoItemUp,
   moveTodoItemDown,
-} from "@/domain/todo-list/logic.js";
-import { todoListActionTypes } from "@/application/todo-list/todoList.actions.js";
+} from "@/domain/todos/logic.js";
+import { todosActionTypes } from "@/application/todos/todos.actions.js";
 
 const reducers = {
-  [todoListActionTypes.ADD_TODO]: (state, action) => {
+  [todosActionTypes.ADD_TODO]: (state, action) => {
     const newTodo = createTodoItem(state.newTodoName, action.payload);
     if (!newTodo) {
       return state;
@@ -18,28 +18,28 @@ const reducers = {
       newTodoName: "",
     };
   },
-  [todoListActionTypes.DELETE_TODO]: (state, action) => {
+  [todosActionTypes.DELETE_TODO]: (state, action) => {
     const todos = deleteTodoItem(state.todos, action.payload);
     return {
       ...state,
       todos,
     };
   },
-  [todoListActionTypes.MOVE_TODO_UP]: (state, action) => {
+  [todosActionTypes.MOVE_TODO_UP]: (state, action) => {
     const todos = moveTodoItemUp(state.todos, action.payload);
     return {
       ...state,
       todos,
     };
   },
-  [todoListActionTypes.MOVE_TODO_DOWN]: (state, action) => {
+  [todosActionTypes.MOVE_TODO_DOWN]: (state, action) => {
     const todos = moveTodoItemDown(state.todos, action.payload);
     return {
       ...state,
       todos,
     };
   },
-  [todoListActionTypes.CHANGE_TODO_NAME]: (state, action) => {
+  [todosActionTypes.CHANGE_TODO_NAME]: (state, action) => {
     return {
       ...state,
       newTodoName: action.payload.name,
@@ -57,7 +57,7 @@ const getInitialState = () => ({
   newTodoName: "",
 });
 
-export const todoListReducer = (state = getInitialState(), action) => {
+export const todosReducer = (state = getInitialState(), action) => {
   const reducer = getReducer(action.type);
   return reducer(state, action);
 };
