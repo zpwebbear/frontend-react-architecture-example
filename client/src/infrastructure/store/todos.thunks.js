@@ -1,5 +1,6 @@
 import { todosUIActions } from "@/application/todos/todosUI.actions.js";
 import { todosActions } from "@/application/todos/todos.actions.js";
+import { getIsNewTodoAllowed } from "@/domain/todos/logic.js";
 
 export const fetchTodos = () => async (dispatch, getState, extra) => {
   dispatch(todosUIActions.fetchTodosStart());
@@ -31,4 +32,15 @@ export const deleteTodo = (id) => async (dispatch, getState, extra) => {
   } catch (error) {
     console.error(error);
   }
+}
+
+export const addTodo = (name) => async (dispatch, getState, extra) => {
+  const { todos } = getState();
+  const isNewTodoAllowed = getIsNewTodoAllowed(todos);
+  if (!isNewTodoAllowed) {
+    dispatch(todosUIActions.warningSetMessage("You can't add more than 5 todos"));
+    dispatch(todosUIActions.warningSetVisible());
+    return;
+  }
+  dispatch(todosActions.addTodoItem());
 }

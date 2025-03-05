@@ -3,52 +3,63 @@ import {
   deleteTodoItem,
   moveTodoItemUp,
   moveTodoItemDown,
+  calculateNextIndex,
+  getIsNewTodoAllowed,
 } from "@/domain/todos/logic.js";
 import { todosActionTypes } from "@/application/todos/todos.actions.js";
 
 const reducers = {
   [todosActionTypes.ADD_TODO]: (state, action) => {
-    const newTodo = createTodoItem(state.todos, state.newTodoName);
-    if (!newTodo) {
+    const { newTodoName, todos } = state;
+    const isNewTodoTodoAllowed = getIsNewTodoAllowed(todos);
+    if (!newTodoName || !isNewTodoTodoAllowed) {
       return state;
     }
+
+    const nextIndex = calculateNextIndex(todos);
+    const newTodo = createTodoItem(newTodoName, nextIndex);
     return {
       ...state,
-      todos: [...state.todos, newTodo],
+      todos: [...todos, newTodo],
       newTodoName: "",
     };
   },
   [todosActionTypes.DELETE_TODO]: (state, action) => {
-    const todos = deleteTodoItem(state.todos, action.payload);
+    const { id } = action.payload;
+    const todos = deleteTodoItem(state.todos, id);
     return {
       ...state,
       todos,
     };
   },
   [todosActionTypes.MOVE_TODO_UP]: (state, action) => {
-    const todos = moveTodoItemUp(state.todos, action.payload);
+    const { id } = action.payload;
+    const todos = moveTodoItemUp(state.todos, id);
     return {
       ...state,
       todos,
     };
   },
   [todosActionTypes.MOVE_TODO_DOWN]: (state, action) => {
-    const todos = moveTodoItemDown(state.todos, action.payload);
+    const { id } = action.payload;
+    const todos = moveTodoItemDown(state.todos, id);
     return {
       ...state,
       todos,
     };
   },
   [todosActionTypes.CHANGE_TODO_NAME]: (state, action) => {
+    const { name } = action.payload;
     return {
       ...state,
-      newTodoName: action.payload.name,
+      newTodoName: name,
     };
   },
   [todosActionTypes.SET_TODOS]: (state, action) => {
+    const { todos } = action.payload;
     return {
       ...state,
-      todos: action.payload.todos,
+      todos,
     };
   },
   DEFAULT: (state) => state,

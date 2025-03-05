@@ -3,13 +3,14 @@ import { UiButton } from "@/application/components/UiButton.jsx";
 import { UiInput } from "@/application/components/UiInput.jsx";
 import { todosActions } from "@/application/todos/todos.actions.js";
 import { selectNewTodoName } from "@/application/todos/todos.selectors.js";
+import { addTodo } from "@/infrastructure/store/todos.thunks.js";
 
 const mapStateToProps = (state) => ({
   name: selectNewTodoName(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAdd: () => dispatch(todosActions.addTodo()),
+  onAdd: () => dispatch(addTodo()),
   onNameChange: (name) => dispatch(todosActions.changeTodoName(name)),
 });
 
