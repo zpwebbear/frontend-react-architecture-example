@@ -23,7 +23,8 @@
     "fastify": "^4.26.1",
     "fastify-cli": "^6.3.0",
     "fastify-plugin": "^4.0.0",
-    "fastify-postgres": "^3.6.0"
+    "fastify-postgres": "^3.6.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "eslint": "^9.21.0",

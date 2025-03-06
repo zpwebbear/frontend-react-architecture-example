@@ -51,7 +51,7 @@ module.exports.todosRepository = (pg) => {
         `INSERT INTO todos (id, name, index) VALUES ${values} ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, index = EXCLUDED.index RETURNING *`,
         flatTodos,
       );
-      return result;
+      return result.rows;
     },
   };
 };

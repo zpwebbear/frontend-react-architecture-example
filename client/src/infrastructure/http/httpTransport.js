@@ -19,6 +19,17 @@ export const createTransport = (baseUrl = 'http://localhost:3333') => ({
     });
     return response.json();
   },
+  put: async (url, data) => {
+    const fullUrl = `${baseUrl}${url}`;
+    const response = await fetch(fullUrl, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  },
   delete: async (url) => {
     const fullUrl = `${baseUrl}${url}`;
     const response = await fetch(fullUrl, {
