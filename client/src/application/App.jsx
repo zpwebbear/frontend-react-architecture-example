@@ -2,6 +2,7 @@ import "./index.css";
 import { Link, Route, Switch } from "wouter";
 import { TodoList } from "./todos-client/TodoList.jsx";
 import { TodoList as TodoListServer } from "./todos-server/TodoList.jsx";
+import { TodoList as TodoListSWR } from "./todos-swr/TodoList.jsx";
 import { UiButton } from "./components/UiButton.jsx";
 
 export const App = () => {
@@ -18,10 +19,18 @@ export const App = () => {
             Todos Server
           </UiButton>
         </Link>
+        <Link href="/todos-swr" className={(active) => (active ? "*:text-yellow-500!" : "")}>
+          <UiButton>
+            Todos SWR
+          </UiButton>
+        </Link>
       </nav>
       <Switch>
         <Route path="/todos-server">
           <TodoListServer />
+        </Route>
+        <Route path="/todos-swr">
+          <TodoListSWR />
         </Route>
         <Route path="/">
           <TodoList />
