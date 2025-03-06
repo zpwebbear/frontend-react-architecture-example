@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 
-
 export const calculateNextIndex = (todos) => {
   const maxIndex = Math.max(...todos.map((todo) => todo.index), 0);
   return maxIndex + 1;
@@ -35,28 +34,30 @@ export const deleteTodoItem = (todos, id) => {
   return withUpdatedIndexes(newTodos);
 };
 
-export const moveTodoItemUp = (state, { id }) => {
-  const currentIndex = state.findIndex((todo) => todo.id === id);
+export const moveTodoItemUp = (todos, id) => {
+  const sortedTodos = todos.sort((a, b) => a.index - b.index);
+  const currentIndex = sortedTodos.findIndex((todo) => todo.id === id);
   if (currentIndex === 0) {
     return state;
   }
   const newIndex = currentIndex - 1;
-  const newState = [...state];
-  const [movedItem] = newState.splice(currentIndex, 1);
-  newState.splice(newIndex, 0, movedItem);
-  return withUpdatedIndexes(newState);
+  const newTodos = todos.slice();
+  const [movedItem] = newTodos.splice(currentIndex, 1);
+  newTodos.splice(newIndex, 0, movedItem);
+  return withUpdatedIndexes(newTodos);
 };
 
-export const moveTodoItemDown = (state, { id }) => {
-  const currentIndex = state.findIndex((todo) => todo.id === id);
-  if (currentIndex === state.length - 1) {
+export const moveTodoItemDown = (todos, id) => {
+  const sortedTodos = todos.sort((a, b) => a.index - b.index);
+  const currentIndex = sortedTodos.findIndex((todo) => todo.id === id);
+  if (currentIndex === sortedTodos.length - 1) {
     return state;
   }
   const newIndex = currentIndex + 1;
-  const newState = [...state];
-  const [movedItem] = newState.splice(currentIndex, 1);
-  newState.splice(newIndex, 0, movedItem);
-  return withUpdatedIndexes(newState);
+  const newTodos = sortedTodos.slice();
+  const [movedItem] = newTodos.splice(currentIndex, 1);
+  newTodos.splice(newIndex, 0, movedItem);
+  return withUpdatedIndexes(newTodos);
 };
 
 const MAX_ALLOWED_TODOS = 5;

@@ -11,7 +11,7 @@ export const selectTodoById = createSelector(
 );
 
 export const selectTodoListIds = createSelector(selectTodos, (state) =>
-  state.map((todo) => todo.id)
+  [...state].sort((a, b) => a.index - b.index).map((todo) => todo.id)
 );
 
 export const selectTodoItemPosition = createSelector(

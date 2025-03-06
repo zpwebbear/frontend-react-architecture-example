@@ -4,8 +4,8 @@ import {
   selectTodoById,
   selectIsLastTodo,
   selectIsFirstTodo,
-} from "@/application/todos/todos.selectors.js";
-import { todosActions } from "@/application/todos/todos.actions.js";
+} from "@/application/todos-client/todos.selectors.js";
+import { todosActions } from "@/application/todos-client/todos.actions.js";
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps;

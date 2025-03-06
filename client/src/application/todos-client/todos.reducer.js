@@ -5,8 +5,8 @@ import {
   moveTodoItemDown,
   calculateNextIndex,
   getIsNewTodoAllowed,
-} from "@/domain/todos/logic.js";
-import { todosActionTypes } from "@/application/todos/todos.actions.js";
+} from "@/domain/todos-client/logic.js";
+import { todosActionTypes } from "@/application/todos-client/todos.actions.js";
 
 const reducers = {
   [todosActionTypes.ADD_TODO]: (state, action) => {

@@ -1,16 +1,15 @@
 import { connect } from "react-redux";
 import { UiButton } from "@/application/components/UiButton.jsx";
-import { InputItem } from "@/application/todos/InputItem.jsx";
-import { TodoItem } from "@/application/todos/TodoItem.jsx";
-import { todosActions } from "@/application/todos/todos.actions.js";
-import { selectTodoListIds } from "@/application/todos/todos.selectors.js";
+import { InputItem } from "@/application/todos-client/InputItem.jsx";
+import { TodoItem } from "@/application/todos-client/TodoItem.jsx";
+import { todosActions } from "@/application/todos-client/todos.actions.js";
+import { selectTodoListIds } from "@/application/todos-client/todos.selectors.js";
 import {
   selectTodosAreLoading,
   selectTodosWarningIsVisible,
-} from "@/application/todos/todosUI.selectors.js";
+} from "@/application/todos-client/todosUI.selectors.js";
 import { UISpinner } from "@/application/components/UISpinner.jsx";
-import { addTodo } from "@/infrastructure/store/todos.thunks.js";
-import { TodoListWarning } from "@/application/todos/TodoListWarning.jsx";
+import { TodoListWarning } from "@/application/todos-client/TodoListWarning.jsx";
 
 const mapStateToProps = (state) => {
   return {

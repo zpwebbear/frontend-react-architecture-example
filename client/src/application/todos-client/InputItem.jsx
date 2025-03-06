@@ -1,16 +1,15 @@
 import { connect } from "react-redux";
 import { UiButton } from "@/application/components/UiButton.jsx";
 import { UiInput } from "@/application/components/UiInput.jsx";
-import { todosActions } from "@/application/todos/todos.actions.js";
-import { selectNewTodoName } from "@/application/todos/todos.selectors.js";
-import { addTodo } from "@/infrastructure/store/todos.thunks.js";
+import { todosActions } from "@/application/todos-client/todos.actions.js";
+import { selectNewTodoName } from "@/application/todos-client/todos.selectors.js";
 
 const mapStateToProps = (state) => ({
   name: selectNewTodoName(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAdd: () => dispatch(addTodo()),
+  onAdd: () => dispatch(todosActions.addTodoUseCase()),
   onNameChange: (name) => dispatch(todosActions.changeTodoName(name)),
 });
 

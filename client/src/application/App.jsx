@@ -1,5 +1,5 @@
 import "./index.css";
-import { TodoList } from "./todos/TodoList.jsx";
+import { TodoList } from "./todos-client/TodoList.jsx";
 
 export const App = () => {
   return (
