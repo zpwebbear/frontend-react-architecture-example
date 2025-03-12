@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 export const calculateNextIndex = (todos) => {
   const maxIndex = Math.max(...todos.map((todo) => todo.index), 0);
   return maxIndex + 1;
@@ -12,13 +10,17 @@ const withUpdatedIndexes = (todos) => {
   }));
 };
 
-export const createTodoItem = (name, index) => {
+export const createTodoItem = (name, index, { uuidProvider }) => {
+  if (!uuidProvider) {
+    throw new Error("uuidProvider is required");
+  }
+
   if (!name) {
     return null;
   }
-
+  
   return {
-    id: uuidv4(),
+    id: uuidProvider.getUUID(),
     name,
     index,
   };

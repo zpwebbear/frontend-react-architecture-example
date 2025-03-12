@@ -9,20 +9,22 @@ export const TodoItem = ({
   isFirst,
   isLast
 }) => {
-  const {todosServerApi} = useContext(TodoServerApiContext);
-  const onMoveUp =  useMutation({
+  const { todosServerApi } = useContext(TodoServerApiContext);
+  
+  const onMoveUp = useMutation({
     mutationFn: () => todosServerApi.moveTodoUp(todo.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
   });
-  
-  const onMoveDown =  useMutation({
+
+  const onMoveDown = useMutation({
     mutationFn: () => todosServerApi.moveTodoDown(todo.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
   });
+
   const onDelete = useMutation({
     mutationFn: () => todosServerApi.deleteTodo(todo.id),
     onSuccess: () => {

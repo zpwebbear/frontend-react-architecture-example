@@ -22,18 +22,6 @@ module.exports.todosRepository = (pg) => {
       const result = await pg.query('SELECT * FROM todos WHERE id = $1', [id]);
       return result.rows[0];
     },
-    async create(todo) {
-      return pg.query(
-        'INSERT INTO todos (name, index) VALUES ($1, $2) RETURNING *',
-        [todo.name, todo.index],
-      );
-    },
-    async updateById(id, todo) {
-      return pg.query(
-        'UPDATE todos SET name = $1, index = $2 WHERE id = $3 RETURNING *',
-        [todo.name, todo.index, id],
-      );
-    },
     async deleteById(id) {
       const result = await pg.query('DELETE FROM todos WHERE id = $1', [id]);
       return result;

@@ -7,6 +7,7 @@ import {
   getIsNewTodoAllowed,
 } from "@/domain/todos-client/logic.js";
 import { todosActionTypes } from "@/application/todos-client/todos.actions.js";
+import { uuidProvider } from "@/application/providers/uuid.provider";
 
 const reducers = {
   [todosActionTypes.ADD_TODO]: (state, action) => {
@@ -17,7 +18,7 @@ const reducers = {
     }
 
     const nextIndex = calculateNextIndex(todos);
-    const newTodo = createTodoItem(newTodoName, nextIndex);
+    const newTodo = createTodoItem(newTodoName, nextIndex, { uuidProvider });
     return {
       ...state,
       todos: [...todos, newTodo],
