@@ -10,8 +10,8 @@ const withUpdatedIndexes = (todos) => {
   }));
 };
 
-export const createTodoItem = (name, index, { uuidProvider }) => {
-  if (!uuidProvider) {
+export const createTodoItem = (name, index, { idProvider }) => {
+  if (!idProvider) {
     throw new Error("uuidProvider is required");
   }
 
@@ -20,7 +20,7 @@ export const createTodoItem = (name, index, { uuidProvider }) => {
   }
   
   return {
-    id: uuidProvider.getUUID(),
+    id: idProvider.getId(),
     name,
     index,
   };

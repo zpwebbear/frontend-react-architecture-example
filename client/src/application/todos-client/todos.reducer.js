@@ -18,7 +18,7 @@ const reducers = {
     }
 
     const nextIndex = calculateNextIndex(todos);
-    const newTodo = createTodoItem(newTodoName, nextIndex, { uuidProvider });
+    const newTodo = createTodoItem(newTodoName, nextIndex, { idProvider: uuidProvider });
     return {
       ...state,
       todos: [...todos, newTodo],
