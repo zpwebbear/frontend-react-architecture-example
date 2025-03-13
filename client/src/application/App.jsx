@@ -1,29 +1,36 @@
+import { Route, Switch } from "wouter";
+import { UiButton } from "./components/UiButton.jsx";
+import { UiLink } from "./components/UiLink.jsx";
 import "./index.css";
-import { Link, Route, Switch } from "wouter";
+import { RecipeView } from "./recipe/RecipeView.jsx";
 import { TodoList } from "./todos-client/TodoList.jsx";
 import { TodoList as TodoListServer } from "./todos-server/TodoList.jsx";
 import { TodoList as TodoListSWR } from "./todos-swr/TodoList.jsx";
-import { UiButton } from "./components/UiButton.jsx";
 
 export const App = () => {
   return (
-    <div className="flex justify-center flex-col items-center h-screen">
+    <div className="flex py-4 flex-col items-center h-screen">
       <nav className="mb-4 gap-2 flex items-center justify-center">
-        <Link href="/" className={(active) => (active ? "*:text-yellow-500!" : "")}>
+        <UiLink href="/">
           <UiButton>
             Todos Client
           </UiButton>
-        </Link>
-        <Link href="/todos-server" className={(active) => (active ? "*:text-yellow-500!" : "")}>
+        </UiLink>
+        <UiLink href="/todos-server">
           <UiButton>
             Todos Server
           </UiButton>
-        </Link>
-        <Link href="/todos-swr" className={(active) => (active ? "*:text-yellow-500!" : "")}>
+        </UiLink>
+        <UiLink href="/todos-swr" >
           <UiButton>
             Todos SWR
           </UiButton>
-        </Link>
+        </UiLink>
+        <UiLink href="/recipe">
+          <UiButton>
+            Recipe
+          </UiButton>
+        </UiLink>
       </nav>
       <Switch>
         <Route path="/todos-server">
@@ -34,6 +41,9 @@ export const App = () => {
         </Route>
         <Route path="/">
           <TodoList />
+        </Route>
+        <Route path="/recipe">
+          <RecipeView />
         </Route>
       </Switch>
     </div>

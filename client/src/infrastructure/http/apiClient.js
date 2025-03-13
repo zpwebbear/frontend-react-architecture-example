@@ -15,3 +15,11 @@ export const todosServerApiClient = (transport) => {
     moveTodoDown: async (id) => transport.put(`/todos-server/${id}/down`, { id }),
   };
 }
+
+export const recipeApiClient = (transport) => {
+  return {
+    fetchRecipe: async () => transport.get("/recipe"),
+    deleteRecipe: async (id) => transport.delete(`/recipe/${id}`),
+    syncRecipe: async (drugs) => transport.post("/recipe", drugs),
+  };
+}
