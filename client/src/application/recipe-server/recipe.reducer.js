@@ -1,4 +1,3 @@
-import { deleteRecipeItem, setRecipeItemEditable, updateRecipeItem } from "../../../../domain/recipes/businessLogic";
 import { recipeServerActionTypes } from "./recipe.actions";
 
 const Status = {
@@ -21,7 +20,14 @@ const getInitialState = () => ({
   instructions: [],
 })
 
-const reducers = {
+const deleteRecipeItem = (drugs, id) => {
+  return drugs.filter((drug) => drug.id !== id);
+};
+
+const businessLogicRedusers = {
+}
+
+const uiRedusers = {
   [recipeServerActionTypes.RESET_INPUT_DRUG]: (state) => {
     return {
       ...state,
@@ -46,48 +52,11 @@ const reducers = {
       drugs: updatedDrugs,
     };
   },
-  [recipeServerActionTypes.EDIT_RECIPE]: (state, action) => {
-    const { drugs } = state;
-    const { id } = action.payload;
-    const updatedDrugs = setRecipeItemEditable(drugs, id);
-    return {
-      ...state,
-      drugs: updatedDrugs,
-    };
-  },
-  [recipeServerActionTypes.UPDATE_RECIPE]: (state, action) => {
-    const { drugs } = state;
-    const { id, name, timesPerDay, duration } = action.payload;
-    const updatedDrugs = updateRecipeItem(drugs, id, { name, timesPerDay, duration });
-    return {
-      ...state,
-      drugs: updatedDrugs,
-    };
-  },
   [recipeServerActionTypes.SET_RECIPE]: (state, action) => {
     const { drugs } = action.payload;
     return {
       ...state,
       drugs,
-    };
-  },
-  [recipeServerActionTypes.FETCH_RECIPE_START]: (state) => {
-    return {
-      ...state,
-      status: Status.LOADING,
-    };
-  },
-  [recipeServerActionTypes.FETCH_RECIPE_SUCCESS]: (state) => {
-    return {
-      ...state,
-      status: Status.IDLE,
-    };
-  },
-  [recipeServerActionTypes.FETCH_RECIPE_ERROR]: (state, action) => {
-    return {
-      ...state,
-      status: Status.ERROR,
-      error: action.payload,
     };
   },
   [recipeServerActionTypes.UPDATE_INPUT_DRUG]: (state, action) => {
@@ -109,13 +78,6 @@ const reducers = {
       drugs: updatedDrugs,
     };
   },
-  [recipeServerActionTypes.UPDATE_INSTRUCTIONS]: (state, action) => {
-    const { instructions } = action.payload;
-    return {
-      ...state,
-      instructions,
-    }
-  },
   [recipeServerActionTypes.SET_INSTRUCTIONS]: (state, action) => {
     const { instructions } = action.payload;
     return {
@@ -123,6 +85,11 @@ const reducers = {
       instructions,
     }
   },
+}
+
+const reducers = {
+  ...businessLogicRedusers,
+  ...uiRedusers,
   DEFAULT: (state) => state,
 };
 

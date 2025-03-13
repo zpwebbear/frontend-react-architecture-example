@@ -37,50 +37,6 @@ export const createRecipeItem = (data, options) => {
   };
 }
 
-export const deleteRecipeItem = (drugs, id) => {
-  return drugs.filter((drug) => drug.id !== id);
-};
-
-export const setRecipeItemEditable = (drugs, id) => {
-  return drugs.map((drug) => {
-    if (drug.id === id) {
-      return {
-        ...drug,
-        editable: true,
-      };
-    }
-    return drug;
-  });
-}
-
-export const saveRecipeItem = (drugs, id) => {
-  return drugs.map((drug) => {
-    if (drug.id === id) {
-      return {
-        ...drug,
-        editable: false,
-      };
-    }
-    return drug;
-  });
-}
-
-export const updateRecipeItem = (drugs, id, data) => {
-  const { name, timesPerDay, duration } = data;
-  return drugs.map((drug) => {
-    if (drug.id === id) {
-      return {
-        ...drug,
-        name,
-        timesPerDay,
-        duration,
-      };
-    }
-    return drug;
-  });
-}
-
-
 class Plan {
   days = [];
   addDrug(drug) {
