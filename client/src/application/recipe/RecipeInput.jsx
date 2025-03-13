@@ -28,6 +28,7 @@ const RecipeInputComponent = ({
 }) => {
   return (
     <div className="flex items-center gap-2">
+      <span className="dark:text-white">No:</span>
       <UiInput value={name} onChange={(e) => onInputDrugChange({ name: e.target.value, timesPerDay, duration })} />
       <UiInput value={timesPerDay} onChange={(e) => onInputDrugChange({ name, timesPerDay: e.target.value, duration })} type="number" min="1" max="4"/>
       <UiInput value={duration} onChange={(e) => onInputDrugChange({ name, timesPerDay, duration: e.target.value })} type="number" min="1" max="30"/>
