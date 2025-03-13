@@ -39,7 +39,32 @@ export const selectInputDrug = createSelector(
   (state) => state.inputDrug
 );
 
+const INGESTION_PERIODS = {
+  morning: "Morning",
+  afternoon: "Afternoon",
+  evening: "Evening",
+  night: "Night",
+}
+
 export const selectInstructions = createSelector(
   selectRecipe,
-  (state) => state.instructions
+  (state) => {
+    const { instructions } = state;
+    const instructionsView = instructions.map((instruction) => {
+      const dayView = Object.entries(INGESTION_PERIODS).map(([key, value]) => {
+        const period = instruction[key];
+        if (period.length === 0) return null;
+        const drugs = period.map((drug) => drug.name).join(', ');
+        return {
+          period: value,
+          drugs,
+        }
+      });
+      return {
+        day: instruction.day,
+        periods: dayView.filter((item) => item !== null)
+      };
+    });
+    return instructionsView;
+  }
 );

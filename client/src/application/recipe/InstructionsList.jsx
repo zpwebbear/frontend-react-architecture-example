@@ -10,27 +10,15 @@ const mapStateToProps = (state) => {
 
 const connector = connect(mapStateToProps);
 
-const INGESTION_PERIODS = {
-  morning: "Morning",
-  afternoon: "Afternoon",
-  evening: "Evening",
-  night: "Night",
-}
-
 const InstructionItem = ({ instruction }) => {
   return (
     <div className="flex flex-col">
       <h3 className="text-2xl font-bold dark:text-white">Day: {instruction.day}</h3>
-      {Object.entries(INGESTION_PERIODS).map(([key, value]) => {
-        const period = instruction[key];
-        if (period.length === 0) return null;
-        const drugs = period.map((drug) => drug.name).join(', ');
-        return (
-          <p className="text-gray-500 dark:text-gray-400">
-            <span className="font-bold">{value}:</span> {drugs}
-          </p>
-        )
-      })}
+      {instruction.periods.map(({ period, drugs }) => (
+        <p className="text-gray-500 dark:text-gray-400">
+          <span className="font-bold">{period}:</span> {drugs}
+        </p>
+      ))}
     </div>
   );
 }
