@@ -1,4 +1,4 @@
-import { calculateIngestingInstructions, createRecipeItem, deleteRecipeItem, setRecipeItemEditable, updateRecipeItem, validateRecipeItem } from "../../domain/recipe/businessLogic";
+import { calculateIngestingInstructions, createRecipeItem, deleteRecipeItem, setRecipeItemEditable, updateRecipeItem, validateRecipeItem } from "../../../../domain/recipes/businessLogic";
 import { recipeActionTypes } from "./recipe.actions";
 import { uuidProvider } from "@/application/providers/uuid.provider";
 
