@@ -25,9 +25,7 @@ const getInitialState = () => ({
 const reducers = {
   [recipeActionTypes.ADD_RECIPE]: (state, action) => {
     const { drugs, inputDrug } = state;
-    console.log("inputDrug", inputDrug);
     const validatedInputDrug = validateRecipeItem(inputDrug);
-    console.log("validatedInputDrug", validatedInputDrug);
     const recipeItem = createRecipeItem(validatedInputDrug, { idProvider: uuidProvider });
     return {
       ...state,
@@ -110,8 +108,13 @@ const reducers = {
   [recipeActionTypes.UPDATE_INSTRUCTIONS]: (state, action) => {
     const { drugs } = state;
     const instructions = calculateIngestingInstructions(drugs);
-    console.log("instructions", instructions);
-    console.log("INSTRUCTION ACTIONS", action)
+    return {
+      ...state,
+      instructions,
+    }
+  },
+  [recipeActionTypes.SET_INSTRUCTIONS]: (state, action) => {
+    const { instructions } = action.payload;
     return {
       ...state,
       instructions,

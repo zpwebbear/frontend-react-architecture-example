@@ -11,6 +11,10 @@ const instructionFormingActions = [
   recipeActionTypes.DELETE_RECIPE,
 ]
 
+const instructionSyncActions = [
+  recipeActionTypes.UPDATE_INSTRUCTIONS,
+]
+
 export const recipeMiddleware = (store) => (next) => (action) => {
   if (syncActions.includes(action.type)) {
     setTimeout(() => {
@@ -21,6 +25,12 @@ export const recipeMiddleware = (store) => (next) => (action) => {
   if (instructionFormingActions.includes(action.type)){
     setTimeout(() => {
       store.dispatch(recipeActions.updateInstructions())
+    }, 0)
+  }
+
+  if(instructionSyncActions.includes(action.type)){
+    setTimeout(() => {
+      store.dispatch(recipeActions.syncInstructionsApi());
     }, 0)
   }
 

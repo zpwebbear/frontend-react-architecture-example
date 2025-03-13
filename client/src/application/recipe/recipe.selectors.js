@@ -48,8 +48,12 @@ const INGESTION_PERIODS = {
 
 export const selectInstructions = createSelector(
   selectRecipe,
-  (state) => {
-    const { instructions } = state;
+  (state) => state.instructions
+);
+
+export const selectInstructionsView = createSelector(
+  selectInstructions,
+  (instructions) => {
     const instructionsView = instructions.map((instruction) => {
       const dayView = Object.entries(INGESTION_PERIODS).map(([key, value]) => {
         const period = instruction[key];

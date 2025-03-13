@@ -1,3 +1,5 @@
+import { selectInstructions, selectInstructionsView } from "./recipe.selectors";
+
 export const recipeActionTypes = {
   ADD_RECIPE: "recipe/addRecipe",
   DELETE_RECIPE: "recipe/deleteRecipe",
@@ -9,7 +11,11 @@ export const recipeActionTypes = {
   FETCH_RECIPE_START: "recipe/fetchRecipeStart",
   FETCH_RECIPE_SUCCESS: "recipe/fetchRecipeSuccess",
   FETCH_RECIPE_ERROR: "recipe/fetchRecipeError",
-  UPDATE_INSTRUCTIONS: "recipe/updateInstructions"
+  UPDATE_INSTRUCTIONS: "recipe/updateInstructions",
+  FETCH_INSTRUCTIONS_START: "recipe/fetchInstructionsStart",
+  FETCH_INSTRUCTIONS_SUCCESS: "recipe/fetchInstructionsSuccess",
+  FETCH_INSTRUCTIONS_ERROR: "recipe/fetchInstructionsError",
+  SET_INSTRUCTIONS: "recipe/setInstructions",
 }
 
 export const recipeActions = {
@@ -53,6 +59,20 @@ export const recipeActions = {
     type: recipeActionTypes.FETCH_RECIPE_ERROR,
     payload: error,
   }),
+  fetchInstructionsStart: () => ({
+    type: recipeActionTypes.FETCH_INSTRUCTIONS_START,
+  }),
+  fetchInstructionsSuccess: () => ({
+    type: recipeActionTypes.FETCH_INSTRUCTIONS_SUCCESS,
+  }),
+  fetchInstructionsError: (error) => ({
+    type: recipeActionTypes.FETCH_INSTRUCTIONS_ERROR,
+    payload: error,
+  }),
+  setInstructions: (instructions) => ({
+    type: recipeActionTypes.SET_INSTRUCTIONS,
+    payload: { instructions },
+  }),
   fetchRecipesApi: () => async (dispatch, getState, extra) => {
     const { recipeApi } = extra;
     dispatch(recipeActions.fetchRecipeStart());
@@ -84,4 +104,27 @@ export const recipeActions = {
       console.error(error);
     }
   },
+  syncInstructionsApi: () => async (dispatch, getState, extra) => {
+    const { recipeApi } = extra;
+    const state = getState();
+    const instructions = selectInstructions(state);
+    try {
+      await recipeApi.syncInstructions(instructions);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  fetchInstructionsApi: () => async (dispatch, getState, extra) => {
+    const { recipeApi } = extra;
+    dispatch(recipeActions.fetchInstructionsStart());
+    try {
+      const response = await recipeApi.fetchInstructions();
+      dispatch(recipeActions.setInstructions(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(recipeActions.fetchInstructionsError(error));
+    } finally {
+      dispatch(recipeActions.fetchInstructionsSuccess());
+    }
+  }
 }

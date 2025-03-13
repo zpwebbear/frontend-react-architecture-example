@@ -1,6 +1,7 @@
 import { connect } from "react-redux"
 import { UiButton } from "../components/UiButton"
 import { selectDrugById, selectDrugIndexById } from "./recipe.selectors"
+import { recipeActions } from "./recipe.actions";
 
 const mapStateToProps = (state, { id }) => ({
   index: selectDrugIndexById(state, id),

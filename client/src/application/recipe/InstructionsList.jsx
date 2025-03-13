@@ -1,10 +1,10 @@
-import { connect } from "react-redux";
-import { selectInstructions } from "./recipe.selectors";
 import { Fragment } from "react";
+import { connect } from "react-redux";
+import { selectInstructionsView } from "./recipe.selectors";
 
 const mapStateToProps = (state) => {
   return {
-    instructions: selectInstructions(state),
+    instructions: selectInstructionsView(state),
   };
 }
 
@@ -15,7 +15,7 @@ const InstructionItem = ({ instruction }) => {
     <div className="flex flex-col">
       <h3 className="text-2xl font-bold dark:text-white">Day: {instruction.day}</h3>
       {instruction.periods.map(({ period, drugs }) => (
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-400" key={period}>
           <span className="font-bold">{period}:</span> {drugs}
         </p>
       ))}

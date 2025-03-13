@@ -33,6 +33,7 @@ export const createRecipeItem = (data, options) => {
     name,
     timesPerDay,
     duration,
+    editable: false,
   };
 }
 

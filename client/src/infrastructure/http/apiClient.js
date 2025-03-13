@@ -18,8 +18,11 @@ export const todosServerApiClient = (transport) => {
 
 export const recipeApiClient = (transport) => {
   return {
-    fetchRecipe: async () => transport.get("/recipe"),
-    deleteRecipe: async (id) => transport.delete(`/recipe/${id}`),
-    syncRecipe: async (drugs) => transport.post("/recipe", drugs),
+    fetchRecipe: async () => transport.get("/recipes"),
+    deleteRecipe: async (id) => transport.delete(`/recipes/${id}`),
+    syncRecipe: async (drugs) => transport.post("/recipes", { recipes: drugs }),
+    syncInstructions: async (instructions) =>
+      transport.post("/recipes/instructions", { instructions }),
+    fetchInstructions: async () => transport.get("/recipes/instructions"),
   };
 }

@@ -1,4 +1,4 @@
-const { todosRepository } = require("../../modules/todos-client/infrastructure/todosRepository")
+const { todosRepository } = require("../../modules/todos-client/infrastructure/todosRepository.js")
 
 module.exports = async function (fastify) {
   fastify.get('/', async function () {
