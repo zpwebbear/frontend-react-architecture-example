@@ -2,10 +2,10 @@ export const validateRecipeItem = (data) => {
   let { name, timesPerDay = 1, duration = 1 } = data;
   let normalizedTimesPerDay = parseInt(timesPerDay, 10);
   let normalizedDuration = parseInt(duration, 10);
-  if (isNaN(normalizedTimesPerDay)){
+  if (isNaN(normalizedTimesPerDay)) {
     normalizedTimesPerDay = 1;
   }
-  if (isNaN(normalizedDuration)){
+  if (isNaN(normalizedDuration)) {
     normalizedDuration = 1;
   }
   if (normalizedTimesPerDay > 4) normalizedTimesPerDay = 4;
@@ -99,30 +99,27 @@ class Plan {
 }
 
 class DayPlan {
+  static timePeriods = {
+    1: ['morning'],
+    2: ['morning', 'evening'],
+    3: ['morning', 'afternoon', 'evening'],
+    4: ['morning', 'afternoon', 'evening', 'night']
+  };
   morning = [];
   afternoon = [];
   evening = [];
   night = [];
   day = null;
+
   addDrug(drug, day) {
     this.day = day;
     const { timesPerDay } = drug;
-    if (timesPerDay === 1) {
-      this.morning.push(drug);
-    } else if (timesPerDay === 2) {
-      this.morning.push(drug);
-      this.evening.push(drug);
-    } else if (timesPerDay === 3) {
-      this.morning.push(drug);
-      this.afternoon.push(drug);
-      this.evening.push(drug);
-    } else if (timesPerDay === 4) {
-      this.morning.push(drug);
-      this.afternoon.push(drug);
-      this.evening.push(drug);
-      this.night.push(drug);
-    }
+    const periods = DayPlan.timePeriods[timesPerDay] || ['morning'];
+    periods.forEach(period => {
+      this[period].push(drug);
+    });
   }
+
   toJSON() {
     return {
       morning: this.morning,
