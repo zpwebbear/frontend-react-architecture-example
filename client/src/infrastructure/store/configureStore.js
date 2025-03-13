@@ -7,14 +7,16 @@ import { withExtraArgument } from "redux-thunk";
 import { todosMiddleware } from "@/application/todos-client/todos.middleware.js";
 import { rootReducer } from "@/infrastructure/store/rootReducer.js";
 import { recipeMiddleware } from "../../application/recipe/recipe.middleware";
+import { recipeServerApiClient } from "../http/apiClient";
 
 const transport = createTransport("http://localhost:3333");
 const todosApi = todosApiClient(transport);
 const todosServerApi = todosServerApiClient(transport);
 const recipeApi = recipeApiClient(transport);
+const recipeServerApi = recipeServerApiClient(transport);
 
 export const configureStore = (preloadedState = {}) => {
-  const thunk = withExtraArgument({ todosApi, todosServerApi, recipeApi });
+  const thunk = withExtraArgument({ todosApi, todosServerApi, recipeApi, recipeServerApi });
   const middlewares = [thunk, todosMiddleware, recipeMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 

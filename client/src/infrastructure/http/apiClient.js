@@ -26,3 +26,14 @@ export const recipeApiClient = (transport) => {
     fetchInstructions: async () => transport.get("/recipes/instructions"),
   };
 }
+
+export const recipeServerApiClient = (transport) => {
+  return {
+    fetchRecipe: async () => transport.get("/recipes-server"),
+    deleteRecipe: async (id) => transport.delete(`/recipes-server/${id}`),
+    createRecipe: async (drug) => transport.post("/recipes-server", { recipe: drug }),
+    createInstructions: async (drugs) =>
+      transport.post("/recipes-server/instructions", { recipes: drugs }),
+    fetchInstructions: async () => transport.get("/recipes-server/instructions"),
+  };
+}

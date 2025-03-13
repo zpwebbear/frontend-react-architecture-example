@@ -3,6 +3,7 @@ import { UiButton } from "./components/UiButton.jsx";
 import { UiLink } from "./components/UiLink.jsx";
 import "./index.css";
 import { RecipeView } from "./recipe/RecipeView.jsx";
+import { RecipeView as RecipeServerView } from "./recipe-server/RecipeView.jsx";
 import { TodoList } from "./todos-client/TodoList.jsx";
 import { TodoList as TodoListServer } from "./todos-server/TodoList.jsx";
 import { TodoList as TodoListSWR } from "./todos-swr/TodoList.jsx";
@@ -31,6 +32,11 @@ export const App = () => {
             Recipe
           </UiButton>
         </UiLink>
+        <UiLink href="/recipe-server">
+          <UiButton>
+            Recipe Server
+          </UiButton>
+        </UiLink>
       </nav>
       <Switch>
         <Route path="/todos-server">
@@ -44,6 +50,9 @@ export const App = () => {
         </Route>
         <Route path="/recipe">
           <RecipeView />
+        </Route>
+        <Route path="/recipe-server">
+          <RecipeServerView />
         </Route>
       </Switch>
     </div>
